@@ -1,7 +1,7 @@
 #coding=utf-8
 '''
 Python文档：
-http://docs.python.org/2/library/functions.html#abs
+http://docs.python.org/2/library/functions.html#abs 
 也可以在交互式命令行通过 help(abs) 查看abs函数的帮助信息。
 '''
 

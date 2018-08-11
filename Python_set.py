@@ -1,6 +1,6 @@
 #coding=utf-8
 
-#set相当于没有value的dict  创建 set 的方式是调用 set() 并传入一个 list，list的元素将作为set的元素 s=set([])
+#set相当于没有value的dict  创建 set 的方式是调用 set() 并传入一个 list，list的元素将作为set的元素 s=set([])；
 
 s = set(['Adam','Lisa','Bart','Paul'])
 
