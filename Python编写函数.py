@@ -101,3 +101,39 @@ A --> B
 A --> C
 B --> C
 
+
+#Python之定义默认参数
+'''
+函数的默认参数的作用是简化调用，你只需要把必须的参数传进去。但是在需要的时候，又可以传入额外的参数来覆盖默认参数值。
+'''
+'''
+请定义一个 greet() 函数，它包含一个默认参数，如果没有传入，打印 'Hello, world.'，如果传入，打印 'Hello, xxx.'
+'''
+def greet(s='world'):
+    print 'Hello,'+s+'.'
+greet()
+greet('Bart')
+
+
+#Python之定义可变参数
+'''
+如果想让一个函数能接受任意个参数，我们就可以定义一个可变参数：
+
+def fn(*args):
+    print args
+可变参数的名字前面有个 * 号，我们可以传入0个、1个或多个参数给可变参数：
+可变参数也不是很神秘，Python解释器会把传入的一组参数组装成一个tuple传递给可变参数，因此，在函数内部，直接把变量 args 看成一个 tuple 就好了。
+'''
+'''
+请编写接受可变参数的 average() 函数。
+'''
+def average(*args):
+    sum=0.0
+    if(len(args)==0):
+        return sum
+    for x in args:
+        sum=sum+x
+    return sum/len(args)
+print average()
+print average(1,2)
+print average(1,2,2,3,4)

@@ -48,3 +48,5 @@ print t
 #或
 t = ('a', 'b', ('A', 'B'))
 print t
+
+#len(t)可求t的元素个数
