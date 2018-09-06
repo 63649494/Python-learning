@@ -48,3 +48,39 @@ zip()函数可以把两个 list 变成一个 list：
 
 提示：考虑使用zip()函数和range()函数
 '''
+L=['Adam','Lisa','Bart','Paul']
+M=range(1,5)
+for index,name in zip(M,L):
+    print index,'-',name
+	
+#迭代dict的value
+'''
+dict 对象有一个 values() 方法，这个方法把dict转换成一个包含所有value的list，这样，我们迭代的就是 dict的每一个 value：
+
+d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59 }
+for v in d.values():
+    print v
+如果仔细阅读Python的文档，还可以发现，dict除了values()方法外，还有一个 itervalues() 方法，用 itervalues() 方法替代 values() 方法，迭代效果完全一样：
+
+d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59 }
+for v in d.itervalues():
+    print v
+	
+那这两个方法有何不同之处呢？
+
+1. values() 方法实际上把一个 dict 转换成了包含 value 的list。
+
+2. 但是 itervalues() 方法不会转换，它会在迭代过程中依次从 dict 中取出 value，所以 itervalues() 方法比 values() 方法节省了生成 list 所需的内存。
+'''
+'''
+给定一个dict：
+
+d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59, 'Paul': 74 }
+
+请计算所有同学的平均分。
+'''
+d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59, 'Paul': 74 }
+sum = 0.0
+for i in d.itervalues():
+   sum= sum + i
+print sum/4
