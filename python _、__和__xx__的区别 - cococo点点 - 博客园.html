@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://www.cnblogs.com/coder2012/p/4423356.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="origin">
+<title>python _、__和__xx__的区别 - cococo点点 - 博客园</title>
+<meta property="og:description" content="python _、__和__xx__的区别本文为译文，版权属于原作者，在此翻译为中文分享给大家。英文原文地址：Difference between _, __ and __xx__ in Python">
+<link type="text/css" rel="stylesheet" href="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/blog-common.css">
+<link type="text/css" rel="stylesheet" href="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/129585.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/bundle-LessIsMoreRight-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/coder2012/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/coder2012/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/coder2012/wlwmanifest.xml">
+<script src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/osd.js"></script><script src="https://cdn.ampproject.org/rtv/011810152207300/amp4ads-host-v0.js"></script><script src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/pubads_impl_rendering_ob_266.js"></script><script async="" src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/analytics.js"></script><script type="text/javascript" src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/encoder.js"></script><script src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/jquery-2.2.0.min.js"></script>
+<script type="text/javascript">var currentBlogApp = 'coder2012', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/blog-common.js" type="text/javascript"></script>
+<link rel="preload" href="https://adservice.google.com/adsid/integrator.js?domain=www.cnblogs.com" as="script"><script type="text/javascript" src="https://adservice.google.com/adsid/integrator.js?domain=www.cnblogs.com"></script><script src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/pubads_impl_ob_266.js" async=""></script></head><remove-web-limits-iqxin id="rwl-iqxin" class="rwl-exempt" style="position: fixed; top: 77px; left: 0px;"><button type="button" id="rwl-setbtn"> set </button> <lalala style="cursor:move;">限制解除</lalala> <input type="checkbox" name="" id="black_node"><style type="text/css">#rwl-iqxin{position:fixed;transform:translate(-90px,0);width:85px;height:25px;font-size:12px;font-weight: 500;font-family:Verdana, Arial, '宋体';color:#fff;background:#333;z-index:2147483647;margin: 0;opacity:0.05;transition:0.3s;overflow:hidden;user-select:none;text-align:center;white-space:nowrap;line-height:25px;padding:0 16px;border:1px solid #ccc;border-width:1px 1px 1px 0;border-bottom-right-radius:5px;box-sizing: content-box;}#rwl-iqxin input{margin: 0;padding: 0;vertical-align:middle;-webkit-appearance:checkbox;-moz-appearance:checkbox;position: static;clip: auto;opacity: 1;cursor: pointer;}#rwl-iqxin.rwl-active-iqxin{left: 0px;transform:translate(0,0);opacity: 0.9;height: 32px;line-height: 32px}#rwl-iqxin label{margin:0;padding:0;font-weight:500;}#rwl-iqxin button{margin: 0;padding: 0 2px;border: none;border-radius: 2px;cursor: pointer;}#rwl-setMenu{text-align:left;font-size:14px;z-index:999999;border: 1px solid cornflowerblue;}#rwl-setMenu p{margin:5px auto;} </style></remove-web-limits-iqxin>
+<body>
+<a name="top"></a>
+<div id="page_begin_html"><script type="text/javascript">window['__document_write_ajax_callbacks__']['3']();</script><script type="text/javascript">window['__document_write_ajax_callbacks__']['1']();</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    }); 
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<div style="display: none" id="__document_write_ajax_div-2"></div><script type="text/javascript">window['__document_write_ajax_callbacks__']['2']();</script></div><script>load_page_begin_html();</script>
+
+<div id="home" style="margin-top: 0px;">
+<div id="header">
+	<div id="blogTitle" style="display: none;">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/coder2012/">learn more and more</a></div>
+<div class="subtitle">更好的阅读体验：<a href="http://simyy.cn/">simyy.cn</a> 同步更新</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator" style="display: none;">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"></li>
+<li id="nav_newpost"><a class="menu" href="http://www.cnblogs.com/coder2012/tag/">分类</a></li>
+<li id="nav_contact"><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/cococo%E7%82%B9%E7%82%B9">联系</a></li>
+<li id="nav_rss"><a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/coder2012/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="https://www.cnblogs.com/coder2012/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+<li id="resume"><a id="MyResume" href="http://www.cnblogs.com/coder2012/p/4322119.html">关于</a></li></ul>
+
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔-203&nbsp;
+文章-0&nbsp;
+评论-202&nbsp;
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent" style="width: 100%;">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/coder2012/p/4423356.html">python _、__和__xx__的区别</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><h1>python _、__和__xx__的区别</h1>
+<div><span style="font-family: 宋体;">本文为译文，版权属于原作者，在此翻译为中文分享给大家。英文原文地址：<a href="http://igorsobreira.com/2010/09/16/difference-between-one-underline-and-two-underlines-in-python.html" target="_blank">Difference between _, __ and __xx__ in Python</a></span></div>
+<div>
+<h2>"_"单下划线</h2>
+<p>Python中不存在真正的私有方法。为了实现类似于c++中私有方法，可以在类的方法或属性前加一个“_”单下划线，意味着该方法或属性不应该去调用，它并不属于API。</p>
+<p>在使用property时，经常出现这个问题：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">class</span><span style="color: #000000;"> BaseForm(StrAndUnicode):
+    ...
+    
+    </span><span style="color: #0000ff;">def</span><span style="color: #000000;"> _get_errors(self):
+        </span><span style="color: #800000;">"</span><span style="color: #800000;">Returns an ErrorDict for the data provided for the form</span><span style="color: #800000;">"</span>
+        <span style="color: #0000ff;">if</span> self._errors <span style="color: #0000ff;">is</span><span style="color: #000000;"> None:
+            self.full_clean()
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> self._errors
+    
+    errors </span>= property(_get_errors)</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<div>
+<p><span style="font-family: 宋体;">上面的代码片段来自于django源码（django/forms/forms.py）。这里的errors是一个属性，属于API的一部分，但是_get_errors是私有的，是不应该访问的，但可以通过errors来访问该错误结果。</span></p>
+<h2><span style="font-family: 宋体;">"__"双下划线</span></h2>
+<p><span style="font-family: 宋体;">这个双下划线更会造成更多混乱，但它并不是用来标识一个方法或属性是私有的，真正作用是用来避免子类覆盖其内容。</span></p>
+<p><span style="font-family: 宋体;">让我们来看一个例子：</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">class</span><span style="color: #000000;"> A(object): 
+    </span><span style="color: #0000ff;">def</span> <span style="color: #800080;">__method</span><span style="color: #000000;">(self): 
+        </span><span style="color: #0000ff;">print</span> <span style="color: #800000;">"</span><span style="color: #800000;">I'm a method in A</span><span style="color: #800000;">"</span> 
+    <span style="color: #0000ff;">def</span><span style="color: #000000;"> method(self): 
+        self.</span><span style="color: #800080;">__method</span>() a = A() a.method()</pre>
+</div>
+<p><span style="font-family: 宋体;">输出是这样的：</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">$ python example.py 
+I</span><span style="color: #800000;">'</span><span style="color: #800000;">m a method in A</span></pre>
+</div>
+<p><span style="font-family: 宋体;"><code>很好，出现了预计的结果。</code></span></p>
+<p><span style="font-family: 宋体;"><code>我们给A添加一个子类，并重新实现一个__method：</code></span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">class</span><span style="color: #000000;"> B(A): 
+    </span><span style="color: #0000ff;">def</span> <span style="color: #800080;">__method</span><span style="color: #000000;">(self): 
+        </span><span style="color: #0000ff;">print</span> <span style="color: #800000;">"</span><span style="color: #800000;">I'm a method in B</span><span style="color: #800000;">"</span><span style="color: #000000;"> 
+
+b </span>=<span style="color: #000000;"> B() 
+b.method()</span><span style="font-family: verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.5; background-color: #ffffff;"><br></span></pre>
+</div>
+<p><code><span style="font-family: 宋体;">现在，结果是这样的：</span><br clear="none"></code></p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">$ python example.py
+I</span><span style="color: #800000;">'</span><span style="color: #800000;">m a method in A</span><span style="font-family: verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.5; background-color: #ffffff;"><br></span></pre>
+</div>
+<p><span style="font-family: 宋体;">就像我们看到的一样，B.method()不能调用B.__method的方法。实际上，它是"__"两个下划线的功能的正常显示。</span></p>
+<p><span style="font-family: 宋体;">因此，在我们创建一个以"__"两个下划线开始的方法时，这意味着这个方法不能被重写，它只允许在该类的内部中使用。</span></p>
+<p><span style="font-family: 宋体;">在Python中如是做的？很简单，它只是把方法重命名了，如下：&nbsp;</span></p>
+<div class="cnblogs_code">
+<pre>a =<span style="color: #000000;"> A()
+a._A__method()  </span><span style="color: #008000;">#</span><span style="color: #008000;"> never use this!! please!</span></pre>
+</div>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">$ python example.py 
+I</span><span style="color: #800000;">'</span><span style="color: #800000;">m a method in A</span></pre>
+</div>
+<p><span style="font-family: 宋体;">如果你试图调用a.__method，它还是无法运行的，就如上面所说，只可以在类的内部调用__method。</span></p>
+<h2><span style="font-family: 宋体;"><code>"__xx__"前后各双下划线</code></span></h2>
+<p><code><span style="font-family: 宋体;">当你看到"__this__"的时，就知道不要调用它。为什么？因为它的意思是它是用于Python调用的，如下：</span><br clear="none"></code></p>
+<div class="cnblogs_code">
+<pre>&gt;&gt;&gt; name = <span style="color: #800000;">"</span><span style="color: #800000;">igor</span><span style="color: #800000;">"</span> 
+&gt;&gt;&gt; name.<span style="color: #800080;">__len__</span>() 4 
+&gt;&gt;&gt; len(name) 4 
+&gt;&gt;&gt; number = 10 
+&gt;&gt;&gt; number.<span style="color: #800080;">__add__</span>(20) 30 
+&gt;&gt;&gt; number + 20 30</pre>
+</div>
+<p><span style="font-family: 宋体;">“__xx__”经常是操作符或本地函数调用的magic methods。在上面的例子中，提供了一种重写类的操作符的功能。</span></p>
+<p><span style="font-family: 宋体;">在特殊的情况下，它只是python调用的hook。例如，__init__()函数是当对象被创建初始化时调用的;__new__()是用来创建实例。</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">class</span><span style="color: #000000;"> CrazyNumber(object):
+    </span><span style="color: #0000ff;">def</span> <span style="color: #800080;">__init__</span><span style="color: #000000;">(self, n): 
+        self.n </span>=<span style="color: #000000;"> n 
+    </span><span style="color: #0000ff;">def</span> <span style="color: #800080;">__add__</span><span style="color: #000000;">(self, other): 
+        </span><span style="color: #0000ff;">return</span> self.n -<span style="color: #000000;"> other 
+    </span><span style="color: #0000ff;">def</span> <span style="color: #800080;">__sub__</span><span style="color: #000000;">(self, other): 
+        </span><span style="color: #0000ff;">return</span> self.n +<span style="color: #000000;"> other 
+    </span><span style="color: #0000ff;">def</span> <span style="color: #800080;">__str__</span><span style="color: #000000;">(self): 
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> str(self.n) 
+
+num </span>= CrazyNumber(10<span style="color: #000000;">) 
+</span><span style="color: #0000ff;">print</span> num <span style="color: #008000;">#</span><span style="color: #008000;"> 10</span>
+<span style="color: #0000ff;">print</span> num + 5 <span style="color: #008000;">#</span><span style="color: #008000;"> 5</span>
+<span style="color: #0000ff;">print</span> num - 20 <span style="color: #008000;">#</span><span style="color: #008000;"> 30    </span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-family: 宋体;">另一个例子</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">class</span><span style="color: #000000;"> Room(object):
+    </span><span style="color: #0000ff;">def</span> <span style="color: #800080;">__init__</span><span style="color: #000000;">(self): 
+        self.people </span>=<span style="color: #000000;"> [] 
+    </span><span style="color: #0000ff;">def</span><span style="color: #000000;"> add(self, person): 
+        self.people.append(person) 
+    </span><span style="color: #0000ff;">def</span> <span style="color: #800080;">__len__</span><span style="color: #000000;">(self): 
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> len(self.people)
+ 
+room </span>=<span style="color: #000000;"> Room() 
+room.add(</span><span style="color: #800000;">"</span><span style="color: #800000;">Igor</span><span style="color: #800000;">"</span><span style="color: #000000;">) 
+</span><span style="color: #0000ff;">print</span> len(room) <span style="color: #008000;">#</span><span style="color: #008000;"> 1</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<h2><span style="font-family: 宋体;">结论</span></h2>
+<ul>
+<li><span style="font-family: 宋体;">使用_one_underline来表示该方法或属性是私有的，不属于API；</span></li>
+<li><span style="font-family: 宋体;">当创建一个用于python调用或一些特殊情况时，使用__two_underline__；</span></li>
+<li><span style="font-family: 宋体;">使用__just_to_underlines，来避免子类的重写！</span></li>
+</ul>
+</div>
+</div></div><div id="MySignature" style="display: block;"><blockquote style="background: #FFFFFF;">
+<p><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="license"><img style="border-width: 0;" src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/88x31.png" alt="知识共享许可协议"></a><br><span>本文</span> 由 <a href="http://www.cnblogs.com/coder2012/p/3142632.html" rel="cc:attributionURL">cococo点点</a> 创作，采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="license">知识共享 署名-非商业性使用-相同方式共享 3.0 中国大陆 许可协议</a>进行许可。欢迎转载，请注明出处：<br>转载自：<a href="http://www.cnblogs.com/coder2012">cococo点点</a> <a href="http://www.cnblogs.com/coder2012">http://www.cnblogs.com/coder2012</a></p></blockquote></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag">标签: <a href="https://www.cnblogs.com/coder2012/tag/Python/">Python</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(4423356,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;70d7623a-db09-e211-aa3f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/coder2012/" target="_blank"><img src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/20150819000527.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/coder2012/">cococo点点</a><br>
+            <a href="http://home.cnblogs.com/u/coder2012/followees">关注 - 20</a><br>
+            <a href="http://home.cnblogs.com/u/coder2012/followers">粉丝 - 371</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor">荣誉：<a href="http://www.cnblogs.com/expert/" target="_blank">推荐博客</a></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;70d7623a-db09-e211-aa3f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(4423356,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">1</span>
+    </div>
+    <div class="buryit" onclick="votePost(4423356,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="https://www.cnblogs.com/coder2012/p/4401153.html" class="p_n_p_prefix">« </a> 上一篇：<a href="https://www.cnblogs.com/coder2012/p/4401153.html" title="发布于2015-04-08 00:49">redis（二）高级用法</a><br><a href="https://www.cnblogs.com/coder2012/p/4433703.html" class="p_n_p_prefix">» </a> 下一篇：<a href="https://www.cnblogs.com/coder2012/p/4433703.html" title="发布于2015-04-16 23:50">python property</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2015-04-13 21:35</span> <a href="https://www.cnblogs.com/coder2012/">cococo点点</a> 阅读(<span id="post_view_count">35480</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=4423356" rel="nofollow">编辑</a> <a href="https://www.cnblogs.com/coder2012/p/4423356.html#" onclick="AddToWz(4423356);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=129585,cb_entryId=4423356,cb_blogApp=currentBlogApp,cb_blogUserGuid='70d7623a-db09-e211-aa3f-842b2b196315',cb_entryCreatedDate='2015/4/13 21:35:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/coder2012/p/4423356.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/coder2012/p/4423356.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型组态工控、电力仿真CAD与GIS源码库！</a><br><a href="http://clickc.admaster.com.cn/c/a116493,b2949399,c1705,i0,m101,8a1,8b3,h" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-华为云&#39;)">【推荐】华为云11.11普惠季 血拼风暴 一促即发</a><br><a href="https://group.cnblogs.com/topic/80253.html" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-拼团&#39;)">【拼团】腾讯云服务器拼团活动又双叒叕来了！</a><br><a href="https://cloud.tencent.com/act/domainsales?fromSource=gwzcw.1351351.1351351.1351351" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-域名&#39;)">【推荐】腾讯云新注册用户域名抢购1元起</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://cloud.tencent.com/act/pro/redis?fromSource=gwzcw.1559146.1559146.1559146" target="_blank"><img width="300" height="250" src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/24442-20181023123922818-1967472495.jpg" alt="腾讯云1023" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;C1&#39;);"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/610388/" target="_blank">华为在德国设立信息安全实验室：允许源代码评估</a><br> ·  <a href="https://news.cnblogs.com/n/610385/" target="_blank">苹果新专利：帮助自动驾驶汽车提高效率</a><br> ·  <a href="https://news.cnblogs.com/n/610383/" target="_blank">Google News现漏洞狂用流量：有用户数个小时被吞24GB</a><br> ·  <a href="https://news.cnblogs.com/n/610380/" target="_blank">马蜂窝被捅后 点评造假在电商、OTA等平台依旧活跃</a><br> ·  <a href="https://news.cnblogs.com/n/610379/" target="_blank">WhatsApp将支持登录第三方网站 无须输入昵称和密码</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<script async="async" src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/gpt.js"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+<script>
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+  });
+</script>
+<div id="cnblogs_c2" class="c_ad_block">
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CJWwl6LVnt4CFYkqlgodMbUAOA">
+    <script>
+    if (new Date() >= new Date(2018, 9, 13)) {
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-1539008685004-0'); });
+    }
+    </script>
+    <div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/saved_resource.html"></iframe></div></div>
+</div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="https://kb.cnblogs.com/page/609730/" target="_blank">阿里云的这群疯子</a><br> ·  <a href="https://kb.cnblogs.com/page/606682/" target="_blank">为什么说 Java 程序员必须掌握 Spring Boot ？</a><br> ·  <a href="https://kb.cnblogs.com/page/606645/" target="_blank">在学习中，有一个比掌握知识更重要的能力</a><br> ·  <a href="https://kb.cnblogs.com/page/603663/" target="_blank">如何招到一个靠谱的程序员</a><br> ·  <a href="https://kb.cnblogs.com/page/573614/" target="_blank">一个故事看懂“区块链”</a><br></div>» <a href="https://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar" style="display: none;">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news">本博客的内容大部属属于作者原创（部分参考其他博文，如有侵权问题请指出），欢迎大家讨论！<div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/coder2012/">cococo点点</a><br>园龄：<a href="https://home.cnblogs.com/u/coder2012/" title="入园时间：2012-09-29">6年</a><br>荣誉：<a href="https://www.cnblogs.com/expert/">推荐博客</a><br>粉丝：<a href="https://home.cnblogs.com/u/coder2012/followers/">371</a><br>关注：<a href="https://home.cnblogs.com/u/coder2012/followees/">20</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;70d7623a-db09-e211-aa3f-842b2b196315&#39;)">+加关注</a></div><script>getFollowStatus('70d7623a-db09-e211-aa3f-842b2b196315')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2018/09/01&#39;);return false;">&lt;</a></td><td align="center">2018年10月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2018/11/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td class="CalWeekendDay" align="center">6</td></tr><tr><td class="CalWeekendDay" align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td class="CalWeekendDay" align="center">13</td></tr><tr><td class="CalWeekendDay" align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td class="CalWeekendDay" align="center">20</td></tr><tr><td class="CalWeekendDay" align="center">21</td><td align="center">22</td><td align="center">23</td><td class="CalTodayDay" align="center">24</td><td align="center">25</td><td align="center">26</td><td class="CalWeekendDay" align="center">27</td></tr><tr><td class="CalWeekendDay" align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/coder2012/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="https://www.cnblogs.com/coder2012/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="https://www.cnblogs.com/coder2012/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="https://www.cnblogs.com/coder2012/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="https://www.cnblogs.com/coder2012/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/coder2012/p/5395913.html">1. MyISAM和InnoDB</a></li><li><a href="https://www.cnblogs.com/coder2012/p/5365846.html">2. redis总结</a></li><li><a href="https://www.cnblogs.com/coder2012/p/5309197.html">3. Btree 索引</a></li><li><a href="https://www.cnblogs.com/coder2012/p/5199333.html">4. TCP状态</a></li><li><a href="https://www.cnblogs.com/coder2012/p/5092190.html">5. The Hacker's Guide To Python 单元测试</a></li><li><a href="https://www.cnblogs.com/coder2012/p/4990834.html">6. Python yield与实现</a></li><li><a href="https://www.cnblogs.com/coder2012/p/4918843.html">7. MySQL 存储过程</a></li><li><a href="https://www.cnblogs.com/coder2012/p/4881854.html">8. golang reflect</a></li><li><a href="https://www.cnblogs.com/coder2012/p/4827757.html">9. MySQL实现嵌套集合模型</a></li><li><a href="https://www.cnblogs.com/coder2012/p/4816894.html">10. Go项目结构和模块导入</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/coder2012/tag/Python/">Python</a>(25)</li><li><a href="https://www.cnblogs.com/coder2012/tag/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>(25)</li><li><a href="https://www.cnblogs.com/coder2012/tag/linux%20c/">linux c</a>(24)</li><li><a href="https://www.cnblogs.com/coder2012/tag/C%2B%2B/">C++</a>(19)</li><li><a href="https://www.cnblogs.com/coder2012/tag/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BC%80%E5%8F%91/">服务器开发</a>(19)</li><li><a href="https://www.cnblogs.com/coder2012/tag/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">网络编程</a>(16)</li><li><a href="https://www.cnblogs.com/coder2012/tag/PHP/">PHP</a>(10)</li><li><a href="https://www.cnblogs.com/coder2012/tag/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>(6)</li><li><a href="https://www.cnblogs.com/coder2012/tag/cache/">cache</a>(6)</li><li><a href="https://www.cnblogs.com/coder2012/tag/ACM/">ACM</a>(6)</li><li><a href="https://www.cnblogs.com/coder2012/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	274205
+	</li>
+	<li class="liRank">
+		排名 -	850
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/coder2012/p/3954736.html#4055961">1. Re:Hash哈希（一）</a></li>
+        <li class="recent_comment_body">"主要原理就是把大范围映射到小范围，因此输入范围必须和小范围相当或者比它更小，否则增加冲突。"<br>那个输入范围不应该是“和小范围相当或者比它更<b>大</b>“吗？</li>
+        <li class="recent_comment_author">--HonyLin</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/coder2012/p/4023442.html#4026655">2. Re:webpy使用笔记（一）</a></li>
+        <li class="recent_comment_body">在webpy中提供了数据库访问的API，其实从源码中可以看出来是对MySQLdb的封装，但为了方便起见用起来还是可以的。我现在是python3用pymysql支持吗？</li>
+        <li class="recent_comment_author">--bk-sail</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/coder2012/p/4050084.html#3958841">3. Re:python __del__</a></li>
+        <li class="recent_comment_body">本地测试了下：Python 2.7确实会报异常； Python3.6 不会报异常</li>
+        <li class="recent_comment_author">--XiaoweiLiu</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/coder2012/p/4508602.html#3893109">4. Re:决策树</a></li>
+        <li class="recent_comment_body">牛逼 好久了 ，赞一个</li>
+        <li class="recent_comment_author">--木易晚成</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/coder2012/p/3441039.html#3864946">5. Re:Linux 进程间通信(二) 管道</a></li>
+        <li class="recent_comment_body">对初学者很有帮助，谢谢楼主!</li>
+        <li class="recent_comment_author">--Adison1</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="https://www.cnblogs.com/coder2012/p/4423356.html">1. python _、__和__xx__的区别(35480)</a></li><li><a href="https://www.cnblogs.com/coder2012/p/3389979.html">2. servlet+jsp+java实现Web 应用(34316)</a></li><li><a href="https://www.cnblogs.com/coder2012/p/4990834.html">3. Python yield与实现(27935)</a></li><li><a href="https://www.cnblogs.com/coder2012/p/3939703.html">4. sqlmap使用笔记(25159)</a></li><li><a href="https://www.cnblogs.com/coder2012/archive/2013/04/13/3012390.html">5. 网络数据包捕获函数库Libpcap安装与使用（非常强大）(20936)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="https://www.cnblogs.com/coder2012/p/3142632.html">1. Nginx学习笔记（二） Nginx--connection&amp;request(12)</a></li><li><a href="https://www.cnblogs.com/coder2012/p/3141469.html">2. Nginx学习笔记（一） Nginx架构(12)</a></li><li><a href="https://www.cnblogs.com/coder2012/p/4086027.html">3. 四个月工作和生活总结(10)</a></li><li><a href="https://www.cnblogs.com/coder2012/archive/2013/04/02/2995889.html">4. Linux 高级Socket编程(8)</a></li><li><a href="https://www.cnblogs.com/coder2012/p/4990834.html">5. Python yield与实现(7)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2018 cococo点点
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+<script type="text/javascript">
+    window.onload=function(){  
+        $('#nav_q').html('<a class="menu" href="http://www.cnblogs.com/coder2012/">首页</a>');
+        $('#nav_newpost').html('<a class="menu" href="http://www.cnblogs.com/coder2012/tag/">分类</a>');
+        var div=document.getElementById("navList");  
+        var li=document.createElement("li");  
+        li.id="resume";  
+
+        var a=document.createElement("a");
+        a.id = "MyResume";
+        a.class="menu";
+        a.href="http://www.cnblogs.com/coder2012/p/4322119.html";
+        a.innerHTML="关于";
+
+        li.appendChild(a);
+        div.appendChild(li); 
+
+        if (document.location.href.indexOf('/p/') > 0) { 
+          document.getElementById("sideBar").style.display = "none";
+          document.getElementById("mainContent").style.width = "100%";
+        }
+    } 
+
+    function guanzhu() {
+        document.getElementById("green_channel_follow").click();
+    }
+
+    function tuijian() {
+        document.getElementById("green_channel_digg").click();
+    }
+
+if (document.location.href.indexOf('/p/') > 0) { 
+    document.getElementById("home").style.marginTop="0";
+    document.getElementById("navigator").style.display = "none";
+    document.getElementById("blogTitle").style.display = "none";
+}
+
+$(function() {
+  $(window).scroll(function() {
+    if($(this).scrollTop() > 500) {
+      $("#toTop").fadeIn(); 
+    } else {
+      $("#toTop").fadeOut();
+    }
+  });
+
+  $("body").append("<div id=\"toTop\">^</div>");
+  $("body").append("<div id=\"guanzhu\" onclick=\"guanzhu()\">关注</div>");
+  $("#toTop").click(function() {
+    $("body,html").animate({scrollTop:0},800);
+  });
+});
+</script><div id="toTop" style="display: none;">^</div><div id="guanzhu" onclick="guanzhu()">关注</div><iframe id="google_osd_static_frame_5013712335518" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./python _、__和__xx__的区别 - cococo点点 - 博客园_files/saved_resource(1).html"></iframe></body></html>
