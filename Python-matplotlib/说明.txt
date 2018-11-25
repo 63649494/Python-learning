@@ -1,0 +1,21 @@
+import numpy as np  
+import matplotlib.pyplot as plt  
+
+散点图：
+
+matplotlib.pyplot.scatter(x, y, s=None, c=None, marker=None, cmap=None, norm=None, vmin=None, vmax=None, alpha=None, linewidths=None, verts=None, edgecolors=None, hold=None, data=None, **kwargs)：
+
+x,y ：形如shape(n,)的数组，可选值  
+s ：点的大小（也就是面积）默认20  
+c： 点的颜色或颜色序列，默认蓝色  
+marker： 形状，可选值，默认是圆  
+cmap:颜色映射，如果c为浮点型数组时，camp是非常有用的。  
+vmin,vmax：vmin和vmax被用于与norm一起标准化亮度数据。如果没有，则使用颜色数组的最小值和最大值。如果您通过一个规范实例，vmin和vmax将被忽略。  
+linewidths：线条的宽度  
+vert：如果marker值为0时，vert用来构建形状。  
+alpha：标量，可选，默认值：无， 0（透明）和1（不透明）之间的alpha混合值  
+edgecolors：边缘颜色或颜色序列，可选值，默认值：None  
+hold:为了同时在一个图上画多条曲线，可以使用hold关键字
+
+
+其中get_cmap中取值可为：Possible values are: Accent, Accent_r, Blues, Blues_r, BrBG, BrBG_r, BuGn, BuGn_r, BuPu, BuPu_r, CMRmap, CMRmap_r, Dark2, Dark2_r, GnBu, GnBu_r, Greens, Greens_r, Greys, Greys_r, OrRd, OrRd_r, Oranges, Oranges_r, PRGn, PRGn_r, Paired, Paired_r, Pastel1, Pastel1_r, Pastel2, Pastel2_r, PiYG, PiYG_r, PuBu, PuBuGn, PuBuGn_r, PuBu_r, PuOr, PuOr_r, PuRd, PuRd_r, Purples, Purples_r, RdBu, RdBu_r, RdGy, RdGy_r, RdPu, RdPu_r, RdYlBu, RdYlBu_r, RdYlGn, RdYlGn_r, Reds, Reds_r, Set1, Set1_r, Set2, Set2_r, Set3, Set3_r, Spectral, Spectral_r, Wistia, Wistia_r, YlGn, YlGnBu, YlGnBu_r, YlGn_r, YlOrBr, YlOrBr_r, YlOrRd, YlOrRd_r...其中末尾加r是颜色取反。
